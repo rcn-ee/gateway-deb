@@ -46,7 +46,9 @@ _python3_version=$(dpkg --status python3 | awk '/Version/ {print $2}' | cut -d. 
 sed -i "s/{{python3}}/python3 (>= ${_python3_version}.0), python3 (<< 3.$(expr $(echo ${_python3_version} | cut -d. -f2) + 1).0~~)/" debian/control
 
 # Build it
-debuild -us -uc
+debuild -us -uc -S -d
+
+exit 2
 
 # Done building, let's just rename things
 cd ..
